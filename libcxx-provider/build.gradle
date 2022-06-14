@@ -15,7 +15,7 @@ android {
         minSdk 21
         targetSdk 32
         versionCode 1
-        versionName "22.1.7171670" // It has to align with ndkVersion
+        versionName "23.2.8568313" // It has to align with ndkVersion
         externalNativeBuild {
             cmake {
                 arguments "-DANDROID_STL=c++_shared"
@@ -23,7 +23,7 @@ android {
         }
     }
 
-    ndkVersion "22.1.7171670"
+    ndkVersion "23.2.8568313"
 
     buildTypes {
         release {
