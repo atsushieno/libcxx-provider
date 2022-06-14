@@ -94,7 +94,7 @@ IMHO The Android NDK team should distribute a package like this, just like how K
 Find and replace those lines that specifies the version:
 
 ```
-/sources/libcxx-provider$ git grep -n 21.4
+/sources/libcxx-provider$ git grep -n 21.4 | grep -v README.md
 libcxx-provider/build.gradle:18:        versionName "21.4.7075529" // It has to align with ndkVersion
 libcxx-provider/build.gradle:26:    ndkVersion "21.4.7075529"
 libcxx-provider/src/main/cpp/package-info.cpp:7:            const char *ndk_version = "21.4.7075529";
