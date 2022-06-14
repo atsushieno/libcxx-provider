@@ -85,7 +85,7 @@ When your application project that references such AARs is being built using NDK
 
 I (@atsushieno) build [an audio plugin framework](https://github.com/atsushieno/android-audio-plugin-framework/) that comes with a couple of framework library AARs and they are used by various plugin apps. Some of those AARs come with the native libraries, and they build up a dependency tree.
 
-Those library AARs are in general designed for apps to be usable without compiling native code. JVM interop projects maybe also good use cases.
+Those library AARs are in general designed for apps to be usable without compiling native code. JVM native binding (interop, FFI) projects would be also good example use cases.
 
 This however uncovers an interesting problem. Those apps often don't have to involve `externalNativeBuild`, then no native compilation happens. In such case, only those native libraries from AARs are packaged into the apk/aab. Now you may have noticed - `libc++_shared.so` is not in any of the AARs, and there is no further native compilation involved.
 
