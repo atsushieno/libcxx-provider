@@ -95,6 +95,8 @@ What happens then? The answer is -
 
 It is [what I experienced](https://github.com/atsushieno/android-audio-plugin-framework/issues/109) and what I wanted to resolve with this package. By adding this simplest AAR package, the missing `libc++_shared.so` piece is filled in my apps.
 
+<img src="images/package-states4.drawio.svg" />
+
 IMHO The Android NDK team should distribute a package like this, just like how Kotlin team does for `kotlin-stdlib` (or the .NET team for CoreCLR/CoreFX artifacts), but so far anyone could do this, hence I am on it now.
 
 
