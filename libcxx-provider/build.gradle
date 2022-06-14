@@ -15,7 +15,7 @@ android {
         minSdk 21
         targetSdk 32
         versionCode 1
-        versionName "22.1.7171670" // It has to align with ndkVersion
+        versionName "21.4.7075529" // It has to align with ndkVersion
         externalNativeBuild {
             cmake {
                 arguments "-DANDROID_STL=c++_shared"
@@ -23,7 +23,7 @@ android {
         }
     }
 
-    ndkVersion "22.1.7171670"
+    ndkVersion "21.4.7075529"
 
     buildTypes {
         release {
@@ -69,36 +69,28 @@ tasks.register('sourceJar', Jar) {
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
-                version = android.defaultConfig.versionName
-                from components.release
-            }
-            debug(MavenPublication) {
-                version = android.defaultConfig.versionName
-                from components.debug
-            }
             maven(MavenPublication) {
                 groupId = group
                 artifactId = "libcxx-provider"
                 version = android.defaultConfig.versionName
-
+                from components.release
 
                 pom {
-                    name.set('libcxx-provider')
-                    description.set('Utility package to ensure libc++ packaged into your aab/apk')
-                    url.set('https://github.com/atsushieno/libcxx-provider')
+                    name = 'libcxx-provider'
+                    description = 'Utility package to ensure libc++ packaged into your aab/apk'
+                    url = 'https://github.com/atsushieno/libcxx-provider'
                     scm { url.set('https://github.com/atsushieno/libcxx-provider') }
                     licenses {
                         license {
-                            name.set('the MIT License')
+                            name = 'the MIT License'
                             url.set('https://github.com/atsushieno/libcxx-provider/blob/main/LICENSE')
                         }
                     }
                     developers {
                         developer {
-                            id.set('atsushieno')
-                            name.set('Atsushi Eno')
-                            email.set('atsushieno@gmail.com')
+                            id = 'atsushieno'
+                            name = 'Atsushi Eno'
+                            email = 'atsushieno@gmail.com'
                         }
                     }
                 }
