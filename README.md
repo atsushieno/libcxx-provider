@@ -60,7 +60,9 @@ The ODR is simple in principle, but we are suffered from various pitfalls.
 
 A popular problem is "More than one file was found with OS independent path 'lib/x86/libc++_shared.so'" etc. It happens when more than one AARs package the same library (even if they are identical).
 
-Whenever we build an AAR that contains a native library that depends on another (base) library (by adding its container AAR dependency), it is also packaged into the AAR. `libc++_shared.so` can be therefore easily inflated everywhere, and causes conflicts.
+Whenever we build an AAR that contains a native library that depends on another (base) library (by adding its container AAR dependency), it is also packaged into the AAR.
+
+Regarding `libc++_shared.so`, almost everything in C++ uses it and therefore it is even easier to get inflated everywhere, and causes conflicts:
 
 <img src="images/package-states1.drawio.svg" />
 
