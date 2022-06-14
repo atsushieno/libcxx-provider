@@ -30,7 +30,6 @@ jobs:
     - name: rewrite build.gradle to require signing
       run: |
         sed -i "s/signing {}/signing { sign publishing.publications }/" libcxx-provider/build.gradle
-        sed -i "s/signing {}/signing { sign publishing.publications }/" libcxx-provider-javacpp/build.gradle
     - name: publish
       run: ./gradlew --warning-mode all publish --max-workers 1 closeAndReleaseSonatypeStagingRepository
       env:
