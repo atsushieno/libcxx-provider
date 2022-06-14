@@ -31,7 +31,7 @@ jobs:
       run: |
         sed -i "s/signing {}/signing { sign publishing.publications }/" libcxx-provider/build.gradle
     - name: publish
-      run: ./gradlew --warning-mode all publish --max-workers 1 closeAndReleaseSonatypeStagingRepository
+      run: ./gradlew --warning-mode all publish
       env:
         USERNAME: atsushieno
         GITHUB_TOKEN: ${{ secrets.MAVEN_PAT }}
