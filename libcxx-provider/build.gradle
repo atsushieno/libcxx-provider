@@ -1,0 +1,111 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+    id 'signing'
+}
+
+group "dev.atsushieno"
+
+android {
+    namespace 'dev.atsushieno.libcxx'
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "21.4.7075529" // It has to align with ndkVersion
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_shared"
+            }
+        }
+    }
+
+    ndkVersion "21.4.7075529"
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.18.1'
+        }
+    }
+    buildFeatures {
+        prefabPublishing = true
+    }
+    prefab {
+        create("cxx-provider") {
+            name = "cxx-provider"
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.7.0'
+}
+
+tasks.register('javadocJar', Jar) {
+    archiveClassifier.set('javadoc')
+}
+tasks.register('sourceJar', Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
+
+afterEvaluate {
+publishing {
+    publications {
+        release(MavenPublication) {
+            version = android.defaultConfig.versionName
+            from components.release
+        }
+        debug(MavenPublication) {
+            version = android.defaultConfig.versionName
+            from components.debug
+        }
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = "libcxx-provider"
+            version = android.defaultConfig.versionName
+
+
+            pom {
+                name.set('libcxx-provider')
+                description.set('Utility package to ensure libc++ packaged into your aab/apk')
+                url.set('https://github.com/atsushieno/libcxx-provider')
+                scm { url.set('https://github.com/atsushieno/libcxx-provider') }
+                licenses {
+                    license {
+                        name.set('the MIT License')
+                        url.set('https://github.com/atsushieno/libcxx-provider/blob/main/LICENSE')
+                    }
+                }
+                developers {
+                    developer {
+                        id.set('atsushieno')
+                        name.set('Atsushi Eno')
+                        email.set('atsushieno@gmail.com')
+                    }
+                }
+            }
+        }
+    }
+}
+
+// keep it as is. It is replaced by CI release builds
+signing {}
+}
