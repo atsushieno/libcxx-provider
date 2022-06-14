@@ -48,7 +48,7 @@ One important rule you have to follow is [ODR - One Definition Rule](https://dev
 
 Unlike C standard library i.e. libc (bionic), libc++ is not shipped as part of Android platform system libraries, so we cannot reference libc.so to load at run-time from the system (where ODR would not matter) but package libc++ in our apps instead.
 
-libc++ can be linked either statically or dynamically, and for simple apps that only link every native code bits into one application library (.so) statically, things are simple. But if you have two or more shared libraries that linked libc++ statically, [that goes problematic](https://developer.android.com/ndk/guides/cpp-support#static_runtimes). You can easily break the ODR rule.
+libc++ can be linked either statically or dynamically, and for simple apps that only link every native code bits into one application library (.so) statically, things are simple. But if you have two or more shared libraries that linked libc++ statically, [that goes problematic](https://developer.android.com/ndk/guides/cpp-support#static_runtimes). You can easily break the ODR.
 
 Therefore we are mostly supposed to use the shared version i.e. `libc++_shared.so` in our libraries.
 
@@ -56,11 +56,16 @@ ODR should not be specific to C++. For example, there should be only one `kotlin
 
 ### Excluding libc++_shared.so from every AAR
 
-The ODR rule is simple in principle, but we are suffered from various pitfalls.
+The ODR is simple in principle, but we are suffered from various pitfalls.
 
 A popular problem is "More than one file was found with OS independent path 'lib/x86/libc++_shared.so'" etc. It happens when more than one AARs package the same library (even if they are identical).
 
-Whenever we build an AAR that contains a native library that depends on another (base) library (by adding its container AAR dependency), it is also packaged into the AAR. `libc++_shared.so` can be therefore easily inflated everywhere. We can exclude those dependency `*.so` files from AARs by e.g.:
+Whenever we build an AAR that contains a native library that depends on another (base) library (by adding its container AAR dependency), it is also packaged into the AAR. `libc++_shared.so` can be therefore easily inflated everywhere, and causes conflicts.
+
+<img src="images/package-states1.drawio.svg" />
+
+
+How to avoid this? We can exclude those dependency `*.so` files from AARs by e.g.:
 
 ```
     packagingOptions {
@@ -72,6 +77,8 @@ This way, we don't have to worry about `libc++_shared.so` duplicates.
 
 When your application project that references such AARs is being built using NDK, it will resolve `libc++_shared.so` and package into the apk/aab.
 
+<img src="images/package-states2.drawio.svg" />
+
 ### Problem on using native-bound libraries without C++ compilation
 
 I (@atsushieno) build [an audio plugin framework](https://github.com/atsushieno/android-audio-plugin-framework/) that comes with a couple of framework library AARs and they are used by various plugin apps. Some of those AARs come with the native libraries, and they build up a dependency tree.
@@ -80,7 +87,11 @@ Those library AARs are in general designed for apps to be usable without compili
 
 This however uncovers an interesting problem. Those apps often don't have to involve `externalNativeBuild`, then no native compilation happens. In such case, only those native libraries from AARs are packaged into the apk/aab. Now you may have noticed - `libc++_shared.so` is not in any of the AARs, and there is no further native compilation involved.
 
-What happens then? "java.lang.UnsatisfiedLinkError: dlopen failed: library "libc++_shared.so" not found" ...
+<img src="images/package-states3.drawio.svg" />
+
+What happens then? The answer is -
+
+> java.lang.UnsatisfiedLinkError: dlopen failed: library "libc++_shared.so" not found (...)
 
 It is [what I experienced](https://github.com/atsushieno/android-audio-plugin-framework/issues/109) and what I wanted to resolve with this package. By adding this simplest AAR package, the missing `libc++_shared.so` piece is filled in my apps.
 
