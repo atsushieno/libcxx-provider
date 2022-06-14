@@ -33,7 +33,7 @@ At the moment, we will have the following versions (actually this document is wr
 - `22.1.7171670` (r22b)
 - `23.2.8568313` (r23c)
 - `24.0.8215888` (r24)
-- `25.0.8528842` (r25-RC4)
+- <del>`25.0.8528842` (r25-RC4)</del> not built yet
 
 (Using NDK versions directly is kind of reckless but it would be better than `0.21.4` etc. because we cannot ship beta/RC versions. Hopefully I make no mistake on them. In the worst case we will come up with further dotted revisions.)
 
