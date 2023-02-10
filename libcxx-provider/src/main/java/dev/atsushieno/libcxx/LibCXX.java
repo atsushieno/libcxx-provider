@@ -1,5 +1,5 @@
 package dev.atsushieno.libcxx;
 
 public interface LibCXX {
-    String ndkVersion = "25.1.8937393";
+    String ndkVersion = "25.2.9519653";
 }
