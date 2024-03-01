@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinAndroid)
     id 'maven-publish'
     id 'signing'
 }
@@ -9,13 +9,13 @@ group "dev.atsushieno"
 
 android {
     namespace 'dev.atsushieno.libcxx'
-    compileSdk 33
+    compileSdk libs.versions.android.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdk 21
-        targetSdk 33
+        minSdk  libs.versions.android.minSdk.get().toInteger()
+        targetSdk  libs.versions.android.targetSdk.get().toInteger()
         versionCode 1
-        versionName "26.2.11394342" // It has to align with ndkVersion
+        versionName libs.versions.ndk.get()
         externalNativeBuild {
             cmake {
                 arguments "-DANDROID_STL=c++_shared"
@@ -23,7 +23,7 @@ android {
         }
     }
 
-    ndkVersion "26.2.11394342"
+    ndkVersion libs.versions.ndk.get()
 
     buildTypes {
         release {
@@ -35,13 +35,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
     externalNativeBuild {
         cmake {
             path file('src/main/cpp/CMakeLists.txt')
-            version '3.18.1'
+            version libs.versions.cmake.get()
         }
     }
     buildFeatures {
