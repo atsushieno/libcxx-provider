@@ -1,0 +1,12 @@
+[versions]
+ndk = "26.2.11394342"
+agp = "8.2.2"
+kotlin = "1.9.22"
+android-compileSdk = "34"
+android-targetSdk = "34"
+android-minSdk = "21"
+cmake = "3.22.1"
+
+[plugins]
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
