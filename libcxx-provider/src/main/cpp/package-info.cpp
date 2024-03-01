@@ -4,7 +4,7 @@
 namespace dev {
     namespace atsushieno {
         namespace libcxx {
-            const char *ndk_version = "26.1.10909125";
+            const char *ndk_version = "26.2.11394342";
         }
     }
 }

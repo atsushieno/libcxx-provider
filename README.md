@@ -27,13 +27,7 @@ dependencies {
 
 The package version number actually indicates the NDK version that provides `libc++_shared.so_`. Version `21.4.7075529` is built with NDK r21e (`21.4.7075529`).
 
-At the moment, we will have the following versions (actually this document is written before publishing those packages, so there may be some gap):
-
-- `21.4.7075529` (r21e)
-- `22.1.7171670` (r22b)
-- `23.2.8568313` (r23c)
-- `24.0.8215888` (r24)
-- <del>`25.0.8528842` (r25-RC4)</del> not built yet
+For the packaged versions, see https://search.maven.org/artifact/dev.atsushieno/libcxx-provider
 
 (Using NDK versions directly is kind of reckless but it would be better than `0.21.4` etc. because we cannot ship beta/RC versions. Hopefully I make no mistake on them. In the worst case we will come up with further dotted revisions.)
 
