@@ -1,5 +1,5 @@
 [versions]
-ndk = "26.3.11579264"
+ndk = "27.0.11718014"
 agp = "8.2.2"
 kotlin = "1.9.22"
 android-compileSdk = "34"
