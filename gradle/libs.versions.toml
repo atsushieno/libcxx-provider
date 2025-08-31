@@ -6,7 +6,9 @@ android-compileSdk = "36"
 android-targetSdk = "36"
 android-minSdk = "21"
 cmake = "3.22.1"
+vanniktech-maven-publish = "0.31.0"
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-maven-publish" }
