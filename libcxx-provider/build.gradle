@@ -84,6 +84,7 @@ mavenPublishing {
         name.set(packageName)
         description.set(packageDescription)
         url.set(packageUrl)
+        version = android.defaultConfig.versionName
         scm { url.set(packageUrl) }
         licenses { license { name.set(licenseName); url.set(licenseUrl) } }
         developers { developer { id.set(devId); name.set(devName); email.set(devEmail) } }
