@@ -1,12 +1,12 @@
 [versions]
-ndk = "28.2.13676358"
-agp = "8.11.0"
+ndk = "29.0.14206865"
+agp = "8.13.2"
 kotlin = "1.9.22"
 android-compileSdk = "36"
 android-targetSdk = "36"
 android-minSdk = "21"
 cmake = "3.22.1"
-vanniktech-maven-publish = "0.31.0"
+vanniktech-maven-publish = "0.36.0"
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
